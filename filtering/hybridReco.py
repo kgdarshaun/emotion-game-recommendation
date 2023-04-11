@@ -16,7 +16,7 @@ import ast
 from contentBasedFiltering import recommendation as content
 from collaborativeFiltering import recommendation as colloborative
 
-games=pd.read_json('../dataset/games.jl',lines=True,encoding='utf-8')
+games=pd.read_json('dataset/games.jl',lines=True,encoding='utf-8')
 
 # Function to calculate hybrid recommendations
 def hybrid_weight(colla_list,content_list):

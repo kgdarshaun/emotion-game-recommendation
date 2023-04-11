@@ -43,7 +43,10 @@ function Main() {
   
   const get_recommendations = () => {
     setLoading(true)
-    axios.post(`http://localhost:8082/recommend/${isUser ? "user" : "game"}/${input}`, {
+    console.log(photo)
+    axios.post("https://recommendation-s4zjzkisqq-uw.a.run.app/recommend", {
+      is_user: isUser,
+      id: input,
       image: photo
     })
     .then(response => {

@@ -1,6 +1,8 @@
 
 import json
-import requests as rq
+import base64
+from deepface import DeepFace
+
 
 from hybridReco import recommendation as user_recommendation
 from newUserReco import recommendation as game_recommendation
@@ -9,11 +11,18 @@ emotion_to_topic = json.loads(open('emotion_to_topic.json', 'r').read())
 emotion_to_genre = json.loads(open('emotion_to_genre.json', 'r').read())
 
 
-emotion_detection_url = 'http://localhost:8081/emotion'
-
+## To initiate download of pretrained datasets
+DeepFace.analyze(img_path = "Image.jpg")
 
 def get_emotion(request_json):
-	return rq.post(emotion_detection_url, json=request_json).json()['emotion']
+	image_string = request_json['image']
+	image_bytes = bytes(image_string.split(',')[1], 'UTF-8')
+	with open("imageToSave.png", "wb") as fh:
+		fh.write(base64.decodebytes(image_bytes))
+	
+	face_analysis = DeepFace.analyze(img_path = "imageToSave.png")
+
+	return face_analysis[0]['dominant_emotion']
 
 def filter_recommendations(recommendations, emotion):
 	mapped_topic = emotion_to_topic[emotion]

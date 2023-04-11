@@ -4,8 +4,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 from collections import defaultdict
 
 # Reading the dataset
-game_df_original = pd.read_json('../dataset/games.jl', lines=True, encoding='utf-8')
-review_df = pd.read_json('../dataset/reviews.jl', lines=True, encoding='utf-8')
+game_df_original = pd.read_json('dataset/games.jl', lines=True, encoding='utf-8')
+review_df = pd.read_json('dataset/reviews.jl', lines=True, encoding='utf-8')
 
 # Create a dataframe of tags for content based filtering
 game_df = game_df_original[['tags','id']].dropna(subset=['tags', 'id'])

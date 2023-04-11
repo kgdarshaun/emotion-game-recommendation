@@ -19,7 +19,7 @@ nltk.download('omw-1.4')
 nltk.download('wordnet')
 import ast
 
-game_df_original = pd.read_json('../dataset/games.jl', lines=True, encoding='utf-8')
+game_df_original = pd.read_json('dataset/games.jl', lines=True, encoding='utf-8')
 
 # Function to lemmatize text
 def lemmatize_and_stem(word):

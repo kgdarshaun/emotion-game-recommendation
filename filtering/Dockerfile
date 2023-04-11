@@ -33,9 +33,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 
 # Download datasets
-# RUN mkdir -p dataset
-# RUN curl -L https://storage.googleapis.com/733_dataset/games.jl -o dataset/games.jl
-# RUN curl -L https://storage.googleapis.com/733_dataset/reviews.jl -o dataset/reviews.jl
+RUN mkdir -p dataset
+RUN curl -L https://storage.googleapis.com/733_dataset/games.jl -o dataset/games.jl
+RUN curl -L https://storage.googleapis.com/733_dataset/reviews.jl -o dataset/reviews.jl
 
 # Run the web service on container startup. Here we use the gunicorn
 # webserver, with one worker process and 8 threads.

@@ -2,8 +2,8 @@ import pandas as pd
 from collections import defaultdict
 
 # Reading the dataset
-review_df = pd.read_json('../dataset/reviews.jl', lines=True, encoding='utf-8')
-game_df = pd.read_json('../dataset/games.jl', lines=True, encoding='utf-8')
+review_df = pd.read_json('dataset/reviews.jl', lines=True, encoding='utf-8')
+game_df = pd.read_json('dataset/games.jl', lines=True, encoding='utf-8')
 
 # Merging review and game dataset for processing
 df = review_df.merge(game_df, how="inner", right_on='id', left_on='product_id')

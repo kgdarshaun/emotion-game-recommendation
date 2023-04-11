@@ -11,28 +11,27 @@ CORS(app)
 def validate_request(identifier):
 	return identifier.isnumeric()
 
+@app.after_request
+def add_cors_header(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+    return response
+
 @app.route('/')
 def hello():
     return 'Hello, World!'
 
-@app.route('/recommend/user/<user_id>', methods=['POST'])
-def get_user_recommendation(user_id):
-	if validate_request(user_id):
-		request_json = request.get_json(force=True)
-
-		return get_recommendations(request_json, user_id)
+@app.route('/recommend', methods=['POST'])
+def get_user_recommendation():
+	request_json = request.get_json(force=True)
+	is_user = request_json['is_user']
+	identifier = request_json['id']
+	if validate_request(identifier):
+		return get_recommendations(request_json, identifier, is_user)
 	else:
-		return '"user id" must be an integer', status.HTTP_400_BAD_REQUEST
-
-
-@app.route('/recommend/game/<steam_id>', methods=['POST'])
-def get_game_recommendation(steam_id):
-	if validate_request(steam_id):
-		request_json = request.get_json(force=True)
-
-		return get_recommendations(request_json, steam_id, False)
-	else:
-		return '"steam id" must be an integer', status.HTTP_400_BAD_REQUEST
+		id_type = is_user if 'user' else 'steam'
+		return f'"{id_type} id" must be an integer', status.HTTP_400_BAD_REQUEST
 
 
 if __name__ == '__main__':
